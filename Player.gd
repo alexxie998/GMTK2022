@@ -12,6 +12,8 @@ var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_up": Vector2.UP,
 			"ui_down": Vector2.DOWN}
 
+var health = 100
+var max_health = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +29,7 @@ func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			move(dir)
+			take_damage()
 			
 	if event.is_action_pressed('ui_accept'):
 		var dieBomb_spawn = load(dieBomb).instance()
@@ -38,6 +41,7 @@ func _unhandled_input(event):
 			playerFacing == DIR.LEFT)), (int(playerFacing == DIR.DOWN) - int(playerFacing == DIR.UP)))
 		dieBomb_spawn.position = self.position + direction_of_interaction * Vector2(16.0, 16.0)
 #		print("spawning dieBomb at position: " + str(spawn_pos))
+		
 
 onready var ray = $RayCast2D
 
@@ -71,6 +75,9 @@ func move_tween(dir):
 		1.0/speed, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	tween.start()
 
+func take_damage():
+	health -= 10
+	$HealthDisplay.update_healthbar(health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -9,6 +9,8 @@ var rng = RandomNumberGenerator.new()
 # var b = "text"
 var illegalCoords = []
 var enemyLocations = []
+var blockNames = ["Tree"]
+var enemyNames = ["Enemy"]
 
 func holeCoords(vect):
 	illegalCoords.append(vect)
@@ -44,6 +46,15 @@ func generateEnemies():
 		#print("success")
 		return Vector2(randx, randy)
 	
+
+func blockBreak(pos):
+	pass
+	
+func enemyKilled(pos):
+	pass
+
+func detectCell(pos):
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
