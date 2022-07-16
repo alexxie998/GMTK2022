@@ -4,9 +4,7 @@ enum DIR { UP, DOWN, LEFT, RIGHT }
 # Allow changing the default facing direction in editor
 export(DIR) var playerFacing = DIR.RIGHT
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 var tile_size = 16
 
 var inputs = {"ui_right": Vector2.RIGHT,
