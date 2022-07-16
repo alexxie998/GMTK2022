@@ -1,5 +1,7 @@
 extends TileMap
 
+export var enemy = "res://Enemy.tscn"
+
 var rng = RandomNumberGenerator.new()
 
 # Declare member variables here. Examples:
@@ -31,8 +33,16 @@ func generateBlocks():
 		#print("illegal")
 
 func generateEnemies():
+	rng.randomize()
+	var randx = rng.randi_range(1, 30)
+	var randy = rng.randi_range(1, 30)
+	if !(illegalCoords.has(Vector2(randx, randy))):
+		#print("legal")
+		illegalCoords.append(Vector2(randx, randy))
+		set_cell(randx,randy, tile_set.find_tile_by_name("Enemy"))
+		#print("success")
+		return Vector2(randx, randy)
 	
-	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,6 +70,9 @@ func _ready():
 		
 	for n in 300:
 		generateBlocks()
+		
+	for n in 15:
+		generateEnemies()
 		
 
 
