@@ -30,6 +30,10 @@ func generateBlocks():
 	#else:
 		#print("illegal")
 
+func generateEnemies():
+	
+	pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -49,6 +53,10 @@ func _ready():
 	for y in 30:
 		illegalCoords.append(Vector2(0, y))
 		illegalCoords.append(Vector2(31, y))
+		
+	for x in range(1,4):
+		for y in range(1,4):
+			illegalCoords.append(Vector2(x,y))
 		
 	for n in 300:
 		generateBlocks()
