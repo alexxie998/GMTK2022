@@ -1,5 +1,6 @@
 extends Node2D
 export var dieBombExplosion = "res://GameObjects/DieBombExplosion.tscn"
+export var diePowerLevel = 4
 
 var explosionTimer;
 var destroyTimer;
@@ -17,10 +18,19 @@ func _ready():
 	explosionTimer.one_shot = true
 	explosionTimer.start()
 
+func set_power_level(powerLevel):
+
+	diePowerLevel = powerLevel
+	match diePowerLevel:
+		4:
+			self.get_child(0).animation = "d4 roll"
+		6:
+			self.get_child(0).animation = "d6 roll"
+			
 func explode():
 	#Instantating die bomb explosion sprites
 	rng.randomize()
-	var randomVal = rng.randi_range(0,5)
+	var randomVal = rng.randi_range(0, diePowerLevel - 1)
 	var explodeRadius = explosionRadiusBase + (randomVal * explosionRadiusMultiplier)
 	#print('explode bomb with radius: ' + str(randomVal + 1))
 	var collisionShape2D = self.get_child(2).get_child(0)

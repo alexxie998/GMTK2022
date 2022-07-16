@@ -1,11 +1,17 @@
 extends Area2D
 export var dieBomb = "res://GameObjects/DieBomb.tscn"
+export var currentDiePowerLevel = 4
+export var useBoot = false
+
+export var diePowerLevels = [4, 6] #add to this for more die power levels
 enum DIR { UP, DOWN, LEFT, RIGHT }
+enum STATUS_UPDATE { SPEED, DICE }
 # Allow changing the default facing direction in editor
 export(DIR) var playerFacing = DIR.RIGHT
 
 
 var tile_size = 16
+var rng = RandomNumberGenerator.new()
 
 var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
@@ -35,6 +41,7 @@ func _unhandled_input(event):
 		var dieBomb_spawn = load(dieBomb).instance()
 		var obstacles = get_node("/root/main/Obstacles")
 		obstacles.add_child(dieBomb_spawn)
+		dieBomb_spawn.set_power_level(currentDiePowerLevel)
 #		print("direction of interaction: " + str(direction_of_interaction))
 #		var spawn_pos = self.position + direction_of_interaction * Vector2(16.0, 16.0)
 		var direction_of_interaction = Vector2((int(playerFacing == DIR.RIGHT) - int(
@@ -66,6 +73,8 @@ func update_facing(direction):
 onready var tween = $Tween
 
 export var speed = 3
+export var minSpeed = 1
+export var maxSpeed = 6
 
 func move_tween(dir):
 	print(self)
@@ -74,6 +83,23 @@ func move_tween(dir):
 		position, position + inputs[dir] * tile_size,
 		1.0/speed, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	tween.start()
+	
+func apply_status_update(update):
+	match typeof(update):
+		STATUS_UPDATE.SPEED:
+			handle_speed_status_update()
+		STATUS_UPDATE.DICE:
+			handle_dice_status_update()
+			
+func handle_speed_status_update():
+	rng.randomize()
+	var randomNum = rng.randi_range(minSpeed, maxSpeed)
+	speed = randomNum
+
+func handle_dice_status_update():
+	rng.randomize()
+	var randomNum = rng.randi_range(0, diePowerLevels.count() - 1)
+	currentDiePowerLevel = diePowerLevels[randomNum]
 
 func take_damage():
 	health -= 10
