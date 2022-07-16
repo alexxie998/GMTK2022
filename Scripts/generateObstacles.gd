@@ -8,6 +8,7 @@ var rng = RandomNumberGenerator.new()
 # var a = 2
 # var b = "text"
 var illegalCoords = []
+var enemyLocations = []
 
 func holeCoords(vect):
 	illegalCoords.append(vect)
