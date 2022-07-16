@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Universal-Trees-And-Mountains.png-9104028a1bcc0c1787e7c64f5cb91b00.stex"
+path="res://.import/IB-LandTileset.png-0f8801a2ec254c3e5598f56871929852.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Universal-Trees-And-Mountains.png"
-dest_files=[ "res://.import/Universal-Trees-And-Mountains.png-9104028a1bcc0c1787e7c64f5cb91b00.stex" ]
+source_file="res://TileSets/IB-LandTileset.png"
+dest_files=[ "res://.import/IB-LandTileset.png-0f8801a2ec254c3e5598f56871929852.stex" ]
 
 [params]
 

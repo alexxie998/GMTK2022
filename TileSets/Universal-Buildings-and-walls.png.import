@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Universal-Buildings-and-walls.png-078a2973ea74edab34285c2c5050fbd5.stex"
+path="res://.import/Universal-Buildings-and-walls.png-f0a08806bf56319c410a04c1c8b18185.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Universal-Buildings-and-walls.png"
-dest_files=[ "res://.import/Universal-Buildings-and-walls.png-078a2973ea74edab34285c2c5050fbd5.stex" ]
+source_file="res://TileSets/Universal-Buildings-and-walls.png"
+dest_files=[ "res://.import/Universal-Buildings-and-walls.png-f0a08806bf56319c410a04c1c8b18185.stex" ]
 
 [params]
 

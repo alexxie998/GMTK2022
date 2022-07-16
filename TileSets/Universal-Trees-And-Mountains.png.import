@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/RPG Tileset.png-599bbfc8f95193dcaf714d5ac115880a.stex"
+path="res://.import/Universal-Trees-And-Mountains.png-a15d8eaa287a270c4a2b66337e999844.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://RPG Tileset.png"
-dest_files=[ "res://.import/RPG Tileset.png-599bbfc8f95193dcaf714d5ac115880a.stex" ]
+source_file="res://TileSets/Universal-Trees-And-Mountains.png"
+dest_files=[ "res://.import/Universal-Trees-And-Mountains.png-a15d8eaa287a270c4a2b66337e999844.stex" ]
 
 [params]
 
