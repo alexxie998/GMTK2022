@@ -24,7 +24,9 @@ script = ExtResource( 7 )
 
 [node name="DieBombAnimation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
+
 frame = 5
+
 speed_scale = 2.5
 playing = true
 
