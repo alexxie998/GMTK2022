@@ -7,7 +7,12 @@ var rng = RandomNumberGenerator.new()
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var numEnemies = 0
 var illegalCoords = []
+var enemyLocations = []
+var blockNames = ["Tree"]
+var enemyNames = ["Enemy"]
+var powerUps = ["speed", "dice"]
 
 func holeCoords(vect):
 	illegalCoords.append(vect)
@@ -41,8 +46,55 @@ func generateEnemies():
 		illegalCoords.append(Vector2(randx, randy))
 		set_cell(randx,randy, tile_set.find_tile_by_name("Enemy"))
 		#print("success")
+		numEnemies += 1
 		return Vector2(randx, randy)
 	
+
+func blockBreak(pos):
+	var dropChance = rng.randf()
+	if dropChance <= .5:
+		var randPowerup = powerUps[randi() % powerUps.size()]
+		print(randPowerup)
+	set_cellv(pos, -1)
+	pass
+	
+func enemyKilled(pos):
+	set_cellv(pos, -1)
+	numEnemies -= 1
+	pass
+
+func detectCell(pos, radius):
+
+	var nCollide = false
+	var eCollide = false
+	var sCollide = false
+	var wCollide = false
+	
+	for n in range(1, radius+1):
+		if !nCollide:
+			if(get_cell(pos.x, pos.y-n) != -1):
+				nCollide = true
+				cellType(pos.x, pos.y-n)
+		if !eCollide:
+			if(get_cell(pos.x+n, pos.y) != -1):
+				eCollide = true
+				cellType(pos.x+n, pos.y)
+		if !sCollide:
+			if(get_cell(pos.x, pos.y+n) != -1):
+				sCollide = true
+				cellType(pos.x, pos.y+n)
+		if !wCollide:
+			if(get_cell(pos.x-n, pos.y) != -1):
+				wCollide = true
+				cellType(pos.x-n, pos.y)
+
+func cellType(x, y):
+	var explodedCell = get_cell(x, y)
+	var cellName = self.tile_set.tile_get_name(explodedCell)
+	if(cellName in blockNames):
+		blockBreak(Vector2(x, y))
+	if(cellName in enemyNames):
+		enemyKilled(Vector2(x, y))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
