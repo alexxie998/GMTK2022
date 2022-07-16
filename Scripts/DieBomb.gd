@@ -38,8 +38,7 @@ func explode():
 	var obstacles = self.get_parent()
 	var cell_x = (self.position.x - 8) / 16;
 	var cell_y = (self.position.y - 8) / 16;
-	#TODO Lod uncomment this when done implementing# obstacles.detect_cell(Vector2(cell_x, cell_y), 
-	#	randomVal + 1)
+	obstacles.detectCell(Vector2(cell_x, cell_y), randomVal + 1)
 	start_destroy_countdown()
 	
 
