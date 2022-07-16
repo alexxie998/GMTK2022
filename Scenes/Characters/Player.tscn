@@ -1,0 +1,241 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Demo/character.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Objects/hpbar.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bump"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 1.1 ), Vector2( 1.1, 0.9 ), Vector2( 1.05, 0.95 ), Vector2( 0.95, 1.05 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.482353, 0.482353, 1 ), Color( 1, 0.482353, 0.482353, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk_down"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 3, 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk_horiz"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 4 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk_up"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 8 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "bump"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 1.1 ), Vector2( 1.1, 0.9 ), Vector2( 1.05, 0.95 ), Vector2( 0.95, 1.05 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.482353, 0.482353, 1 ), Color( 1, 0.482353, 0.482353, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "walk_down"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.05, 0.07, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 3, 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "walk_horiz"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 4 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "walk_up"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 8 ]
+}
+
+[node name="Player" type="Node2D" groups=["actors"]]
+position = Vector2( -1.594, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/bump = SubResource( 1 )
+anims/damage = SubResource( 5 )
+anims/walk_down = SubResource( 2 )
+anims/walk_horiz = SubResource( 3 )
+anims/walk_up = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationPlayer"]
+anims/bump = SubResource( 6 )
+anims/damage = SubResource( 7 )
+anims/walk_down = SubResource( 8 )
+anims/walk_horiz = SubResource( 9 )
+anims/walk_up = SubResource( 10 )
+
+[node name="Pivot" type="Position2D" parent="."]
+
+[node name="Node2D" parent="Pivot" instance=ExtResource( 3 )]
+position = Vector2( -10, -22.013 )
+scale = Vector2( 0.05, 0.06 )
+
+[node name="Sprite" type="Sprite" parent="Pivot"]
+position = Vector2( 0, -8 )
+texture = ExtResource( 2 )
+hframes = 4
+vframes = 3
+
+[node name="PlayerCamera" type="Camera2D" parent="Pivot"]
+current = true
+zoom = Vector2( 0.2, 0.2 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="InvincTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="health_changed" from="." to="Pivot/Node2D" method="_on_Player_health_changed"]
+[connection signal="on_max_health_updated" from="." to="Pivot/Node2D" method="_on_Player_on_max_health_updated"]
