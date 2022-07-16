@@ -1,5 +1,8 @@
 extends Area2D
-
+export var dieBomb = "res://GameObjects/DieBomb.tscn"
+enum DIR { UP, DOWN, LEFT, RIGHT }
+# Allow changing the default facing direction in editor
+export(DIR) var playerFacing = DIR.RIGHT
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -21,9 +24,22 @@ func _ready():
 func _unhandled_input(event):
 	if tween.is_active():
 		return
+	
+	#Player movement
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			move(dir)
+			
+	if event.is_action_pressed('ui_accept'):
+		var dieBomb_spawn = load(dieBomb).instance()
+		var obstacles = get_node("/root/main/Obstacles")
+		obstacles.add_child(dieBomb_spawn)
+#		print("direction of interaction: " + str(direction_of_interaction))
+#		var spawn_pos = self.position + direction_of_interaction * Vector2(16.0, 16.0)
+		var direction_of_interaction = Vector2((int(playerFacing == DIR.RIGHT) - int(
+			playerFacing == DIR.LEFT)), (int(playerFacing == DIR.DOWN) - int(playerFacing == DIR.UP)))
+		dieBomb_spawn.position = self.position + direction_of_interaction * Vector2(16.0, 16.0)
+#		print("spawning dieBomb at position: " + str(spawn_pos))
 
 onready var ray = $RayCast2D
 
@@ -33,6 +49,17 @@ func move(dir):
 	if !ray.is_colliding():
 		#position += inputs[dir] * tile_size
 		move_tween(dir)
+		update_facing(dir)
+
+func update_facing(direction):
+	if direction == 'ui_right':
+		playerFacing = DIR.RIGHT
+	elif direction == 'ui_left':
+		playerFacing = DIR.LEFT
+	elif direction == 'ui_up':
+		playerFacing = DIR.UP
+	elif direction == 'ui_down':
+		playerFacing = DIR.DOWN
 
 onready var tween = $Tween
 
