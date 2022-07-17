@@ -4,6 +4,7 @@ export var diePowerLevel = 4
 export var kicked = false
 export var hasExecuted = false
 export var modulateColor = true
+onready var bombSound = $bombSound
 
 var explosionTimer;
 var destroyTimer;
@@ -21,12 +22,13 @@ func _ready():
 	destroyTimer = self.get_child(3)
 	turnRedTimer = self.get_child(4)
 	turnRedTimer.connect("timeout",self,"turnRed")
-	turnRedTimer.wait_time = 4.25
+	turnRedTimer.wait_time = 2.5
 	turnRedTimer.one_shot = true
 	turnRedTimer.start()
 	explosionTimer.connect("timeout",self,"explode")
-	explosionTimer.wait_time = 5
+	explosionTimer.wait_time = 3.75
 	explosionTimer.one_shot = true
+	bombSound.play()
 	explosionTimer.start()
 	
 var velocity = Vector2(0.0, 0.0)
