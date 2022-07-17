@@ -1,7 +1,7 @@
 extends Area2D
 export var dieBomb = "res://GameObjects/DieBomb.tscn"
 export var currentDiePowerLevel = 4
-export var useBoot = false
+export var hasBoot = false
 
 export var diePowerLevels = [4, 6] #add to this for more die power levels
 enum DIR { UP, DOWN, LEFT, RIGHT }
@@ -12,6 +12,8 @@ export(DIR) var playerFacing = DIR.RIGHT
 
 var tile_size = 16
 var rng = RandomNumberGenerator.new()
+onready var collisionShape2D = self.get_child(1)
+
 
 var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
@@ -42,12 +44,11 @@ func _unhandled_input(event):
 		var obstacles = get_node("/root/main/Obstacles")
 		obstacles.add_child(dieBomb_spawn)
 		dieBomb_spawn.set_power_level(currentDiePowerLevel)
-#		print("direction of interaction: " + str(direction_of_interaction))
-#		var spawn_pos = self.position + direction_of_interaction * Vector2(16.0, 16.0)
-		var direction_of_interaction = Vector2((int(playerFacing == DIR.RIGHT) - int(
-			playerFacing == DIR.LEFT)), (int(playerFacing == DIR.DOWN) - int(playerFacing == DIR.UP)))
-		dieBomb_spawn.position = self.position + direction_of_interaction * Vector2(16.0, 16.0)
-#		print("spawning dieBomb at position: " + str(spawn_pos))
+		dieBomb_spawn.set_hasBoot(hasBoot)
+		dieBomb_spawn.position = self.position
+
+	if event.is_action_pressed('ui_focus_next'):
+		hasBoot = true
 		
 
 onready var ray = $RayCast2D
@@ -59,6 +60,7 @@ func move(dir):
 		#position += inputs[dir] * tile_size
 		move_tween(dir)
 		update_facing(dir)
+	
 
 func update_facing(direction):
 	if direction == 'ui_right':
