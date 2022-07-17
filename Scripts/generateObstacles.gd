@@ -10,8 +10,8 @@ var rng = RandomNumberGenerator.new()
 var numEnemies = 0
 var illegalCoords = []
 var enemyLocations = []
-var blockNames = ["Tree", "Crate"]
-var enemyNames = ["Enemy", "Dummy"]
+var blockNames = ["Tree", "Crate", "Crystal"]
+var enemyNames = ["Dummy"]
 var powerUps = ["dice"]
 var gameOver = false
 
@@ -55,16 +55,19 @@ func generateEnemies():
 	
 
 func blockBreak(pos):
-	var dropChance = rng.randf()
-	if dropChance <= .5:
-		var randPowerup = powerUps[randi() % powerUps.size()]
-		print(randPowerup)
+	
+	if(self.tile_set.tile_get_name(get_cellv(pos)) == "Crystal"):
+		var dropChance = rng.randf()
+		if dropChance <= .5:
+			var randPowerup = powerUps[randi() % powerUps.size()]
+			print(randPowerup)
 	set_cellv(pos, -1)
 	pass
 	
 func enemyKilled(pos):
 	set_cellv(pos, -1)
 	numEnemies -= 1
+	print("enemies left: " + str(numEnemies))
 	if numEnemies <= 0:
 		gameOver = true
 		print("Game Over")

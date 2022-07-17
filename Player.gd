@@ -35,9 +35,9 @@ func _unhandled_input(event):
 	
 	#Player movement
 	for dir in inputs.keys():
-		if event.is_action_pressed(dir):
+		if event.is_action(dir):
 			move(dir)
-			take_damage()
+			
 			
 	if event.is_action_pressed('ui_accept'):
 		var dieBomb_spawn = load(dieBomb).instance()
@@ -83,7 +83,7 @@ func move_tween(dir):
 	print(position)
 	tween.interpolate_property(self, "position",
 		position, position + inputs[dir] * tile_size,
-		1.0/speed, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 	
 func apply_status_update(update):
