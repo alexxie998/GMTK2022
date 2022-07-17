@@ -1,7 +1,7 @@
 extends Area2D
 export var dieBomb = "res://GameObjects/DieBomb.tscn"
 export var currentDiePowerLevel = 4
-export var hasBoot = false
+
 
 export var diePowerLevels = [4, 6] #add to this for more die power levels
 enum DIR { UP, DOWN, LEFT, RIGHT }
@@ -45,10 +45,6 @@ func _unhandled_input(event):
 		obstacles.add_child(dieBomb_spawn)
 		dieBomb_spawn.set_power_level(currentDiePowerLevel)
 		dieBomb_spawn.position = self.position
-
-	if event.is_action_pressed('ui_focus_next'):
-		hasBoot = true
-		
 
 onready var ray = $RayCast2D
 
@@ -107,7 +103,7 @@ func handle_speed_status_update():
 
 func handle_dice_status_update():
 	rng.randomize()
-	var randomNum = rng.randi_range(0, diePowerLevels.count() - 1)
+	var randomNum = rng.randi_range(0, diePowerLevels.size() - 1)
 	currentDiePowerLevel = diePowerLevels[randomNum]
 
 func take_damage():
