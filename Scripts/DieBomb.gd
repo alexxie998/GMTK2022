@@ -1,7 +1,7 @@
 extends Node2D
 export var dieBombExplosion = "res://GameObjects/DieBombExplosion.tscn"
 export var diePowerLevel = 4
-export var hasBoot = false
+export var kicked = false
 export var hasExecuted = false
 
 var explosionTimer;
@@ -16,13 +16,13 @@ func _ready():
 	explosionTimer = self.get_child(1)
 	destroyTimer = self.get_child(3)
 	explosionTimer.connect("timeout",self,"explode")
-	explosionTimer.wait_time = 1
+	explosionTimer.wait_time = 4
 	explosionTimer.one_shot = true
 	explosionTimer.start()
 	
-var velocity = Vector2(3.0, 0.0)
+var velocity = Vector2(0.0, 0.0)
 func _process(delta):
-	if hasBoot:
+	if kicked:
 		velocity = self.get_child(2).move_and_slide(velocity)
 		self.position = self.position + velocity
 	
@@ -69,9 +69,6 @@ func start_destroy_countdown():
 func destroy_self():
 	print("destroy bomb")
 	get_parent().remove_child(self)
-
-func set_hasBoot(val):
-	hasBoot = val
 	
 func _unhandled_input(event):
 	if (!hasExecuted && (event.is_action_pressed('ui_right')
@@ -82,6 +79,9 @@ func _unhandled_input(event):
 			collisionShape2D.disabled = false
 			hasExecuted = true
 
+func kick(direction):
+	velocity = 3.0 * direction
+	kicked = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
