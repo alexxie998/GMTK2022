@@ -30,6 +30,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _unhandled_input(event):
+	
 	if tween.is_active():
 		return
 	

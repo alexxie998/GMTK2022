@@ -2,6 +2,8 @@ extends TileMap
 
 export var enemy = "res://Enemy.tscn"
 
+
+
 var rng = RandomNumberGenerator.new()
 
 # Declare member variables here. Examples:
@@ -14,6 +16,7 @@ var blockNames = ["Tree", "Crate", "Crystal"]
 var enemyNames = ["Dummy"]
 var powerUps = ["dice"]
 var gameOver = false
+var spawnedPUs = []
 
 
 func holeCoords(vect):
@@ -61,7 +64,12 @@ func blockBreak(pos):
 		if dropChance <= .5:
 			var randPowerup = powerUps[randi() % powerUps.size()]
 			print(randPowerup)
-	set_cellv(pos, -1)
+			set_cellv(pos, 5)
+			spawnedPUs.append(pos)
+		else:
+			set_cellv(pos, -1)
+	else:
+		set_cellv(pos, -1)
 	pass
 	
 func enemyKilled(pos):
@@ -108,7 +116,7 @@ func cellType(x, y):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+
 	holeCoords(Vector2(5,5))
 	holeCoords(Vector2(11,11))
 	holeCoords(Vector2(19,19))

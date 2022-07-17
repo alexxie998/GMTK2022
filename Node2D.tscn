@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://TileSets/Universal-Trees-And-Mountains.png" type="Texture" id=1]
 [ext_resource path="res://TileSets/RPG Tileset.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://HealthDisplay.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/dummy.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/crate.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/upgrades/diceUpgrade.png" type="Texture" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "RPG Tileset.png 0"
@@ -261,6 +262,20 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 4/z_index = 0
+5/name = "Upgrade"
+5/texture = ExtResource( 11 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 16, 16 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
