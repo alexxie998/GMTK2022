@@ -113,7 +113,15 @@ func cellType(x, y):
 		blockBreak(Vector2(x, y))
 	if(cellName in enemyNames):
 		enemyKilled(Vector2(x, y))
-
+		
+func isPowerupSpace(pos):
+	if pos in spawnedPUs:
+		spawnedPUs.erase(pos)
+		set_cellv(pos, -1)
+		return true
+	else:
+		return false
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 

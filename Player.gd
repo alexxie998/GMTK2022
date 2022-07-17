@@ -2,6 +2,11 @@ extends Area2D
 export var dieBomb = "res://GameObjects/DieBomb.tscn"
 export var currentDiePowerLevel = 4
 
+onready var _animation_player = $AnimationPlayer
+onready var sprite = $AnimatedSprite
+onready var step1 = $step1
+onready var step2 = $step2
+
 
 export var diePowerLevels = [4, 6] #add to this for more die power levels
 enum DIR { UP, DOWN, LEFT, RIGHT }
@@ -30,6 +35,16 @@ func _ready():
 	pass # Replace with function body.
 
 func _unhandled_input(event):
+	var obstacles = get_node("/root/main/Obstacles")
+	var currentTile = Vector2((position.x-8)/16, (position.y-8)/16)
+	
+	if (obstacles.isPowerupSpace(currentTile)):
+		rng.randomize()
+		var randomNum = randf()
+		if randomNum < .5:
+			handle_dice_status_update()
+		else:
+			handle_speed_status_update()
 	
 	if tween.is_active():
 		return
@@ -39,10 +54,8 @@ func _unhandled_input(event):
 		if event.is_action(dir):
 			move(dir)
 			
-			
 	if event.is_action_pressed('ui_accept'):
 		var dieBomb_spawn = load(dieBomb).instance()
-		var obstacles = get_node("/root/main/Obstacles")
 		obstacles.add_child(dieBomb_spawn)
 		dieBomb_spawn.set_power_level(currentDiePowerLevel)
 		dieBomb_spawn.position = self.position
@@ -69,12 +82,16 @@ func move(dir):
 func update_facing(direction):
 	if direction == 'ui_right':
 		playerFacing = DIR.RIGHT
+		sprite.play("Walk_Right")
 	elif direction == 'ui_left':
 		playerFacing = DIR.LEFT
+		sprite.play("Walk_Left")
 	elif direction == 'ui_up':
 		playerFacing = DIR.UP
+		sprite.play("Walk_Up")
 	elif direction == 'ui_down':
 		playerFacing = DIR.DOWN
+		sprite.play("Walk_Down")
 
 onready var tween = $Tween
 
@@ -83,15 +100,17 @@ export var minSpeed = 1
 export var maxSpeed = 6
 
 func move_tween(dir):
-	var animationPlayer = self.get_child(4)
-	animationPlayer.play("walking")
-	print(self)
-	print(position)
+	#print(self)
+	#print(position)
 	tween.interpolate_property(self, "position",
 		position, position + inputs[dir] * tile_size,
-		1.0 / speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
-	yield(animationPlayer, "animation_finished")
+	var randomNum = rng.randf()
+	if randomNum < .5:
+		step1.play()
+	else:
+		step2.play()
 	
 func apply_status_update(update):
 	match typeof(update):
