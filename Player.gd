@@ -83,12 +83,15 @@ export var minSpeed = 1
 export var maxSpeed = 6
 
 func move_tween(dir):
-	#print(self)
-	#print(position)
+	var animationPlayer = self.get_child(4)
+	animationPlayer.play("walking")
+	print(self)
+	print(position)
 	tween.interpolate_property(self, "position",
 		position, position + inputs[dir] * tile_size,
-		1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		1.0 / speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+	yield(animationPlayer, "animation_finished")
 	
 func apply_status_update(update):
 	match typeof(update):
