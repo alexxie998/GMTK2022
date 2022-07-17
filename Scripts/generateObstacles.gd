@@ -10,9 +10,11 @@ var rng = RandomNumberGenerator.new()
 var numEnemies = 0
 var illegalCoords = []
 var enemyLocations = []
-var blockNames = ["Tree"]
-var enemyNames = ["Enemy"]
-var powerUps = ["speed", "dice"]
+var blockNames = ["Tree", "Crate", "Crystal"]
+var enemyNames = ["Dummy"]
+var powerUps = ["dice"]
+var gameOver = false
+
 
 func holeCoords(vect):
 	illegalCoords.append(vect)
@@ -25,13 +27,13 @@ func generateBlocks():
 	rng.randomize()
 	var randx = rng.randi_range(1, 30)
 	var randy = rng.randi_range(1, 30)
-	#print("block at ")
-	#print(randx)
-	#print(randy)
+
+	var randBlock = blockNames[randi() % blockNames.size()]
+
 	if !(illegalCoords.has(Vector2(randx, randy))):
 		#print("legal")
 		illegalCoords.append(Vector2(randx, randy))
-		set_cell(randx,randy, tile_set.find_tile_by_name("Tree"))
+		set_cell(randx,randy, tile_set.find_tile_by_name(randBlock))
 		#print("success")
 		return Vector2(randx, randy)
 	#else:
@@ -41,26 +43,34 @@ func generateEnemies():
 	rng.randomize()
 	var randx = rng.randi_range(1, 30)
 	var randy = rng.randi_range(1, 30)
+	
+	var randEnemy = enemyNames[randi() % enemyNames.size()]
 	if !(illegalCoords.has(Vector2(randx, randy))):
 		#print("legal")
 		illegalCoords.append(Vector2(randx, randy))
-		set_cell(randx,randy, tile_set.find_tile_by_name("Enemy"))
+		set_cell(randx,randy, tile_set.find_tile_by_name(randEnemy))
 		#print("success")
 		numEnemies += 1
 		return Vector2(randx, randy)
 	
 
 func blockBreak(pos):
-	var dropChance = rng.randf()
-	if dropChance <= .5:
-		var randPowerup = powerUps[randi() % powerUps.size()]
-		print(randPowerup)
+	
+	if(self.tile_set.tile_get_name(get_cellv(pos)) == "Crystal"):
+		var dropChance = rng.randf()
+		if dropChance <= .5:
+			var randPowerup = powerUps[randi() % powerUps.size()]
+			print(randPowerup)
 	set_cellv(pos, -1)
 	pass
 	
 func enemyKilled(pos):
 	set_cellv(pos, -1)
 	numEnemies -= 1
+	print("enemies left: " + str(numEnemies))
+	if numEnemies <= 0:
+		gameOver = true
+		print("Game Over")
 	pass
 
 func detectCell(pos, radius):
