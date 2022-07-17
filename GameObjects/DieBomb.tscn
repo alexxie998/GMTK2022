@@ -51,7 +51,7 @@ script = ExtResource( 7 )
 [node name="DieBombAnimation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "d4 roll"
-frame = 1
+frame = 3
 speed_scale = 2.5
 playing = true
 
