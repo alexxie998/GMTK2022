@@ -280,16 +280,6 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 5/shapes = [  ]
 5/z_index = 0
 
-[sub_resource type="AtlasTexture" id=16]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 16, 16, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 32, 16, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
 atlas = ExtResource( 12 )
@@ -309,6 +299,31 @@ region = Rect2( 0, 0, 16, 16 )
 flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 32, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=22]
 flags = 4
@@ -330,28 +345,8 @@ flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=28]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 32, 0, 16, 16 )
-
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "Walk_Up",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "Walk_Down",
@@ -362,9 +357,9 @@ animations = [ {
 "name": "Walk_Right",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
-"name": "Damage",
+"name": "Walk_Up",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 26 ) ],
@@ -375,6 +370,11 @@ animations = [ {
 "frames": [ SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "Walk_Left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"loop": true,
+"name": "Damage",
 "speed": 5.0
 } ]
 
