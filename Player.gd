@@ -1,7 +1,7 @@
 extends Area2D
 export var dieBomb = "res://GameObjects/DieBomb.tscn"
 export var currentDiePowerLevel = 4
-export var hasBoot = false
+
 
 export var diePowerLevels = [4, 6] #add to this for more die power levels
 enum DIR { UP, DOWN, LEFT, RIGHT }
@@ -45,22 +45,25 @@ func _unhandled_input(event):
 		var obstacles = get_node("/root/main/Obstacles")
 		obstacles.add_child(dieBomb_spawn)
 		dieBomb_spawn.set_power_level(currentDiePowerLevel)
-		dieBomb_spawn.set_hasBoot(hasBoot)
 		dieBomb_spawn.position = self.position
-
-	if event.is_action_pressed('ui_focus_next'):
-		hasBoot = true
-		
 
 onready var ray = $RayCast2D
 
 func move(dir):
+	update_facing(dir)
 	ray.cast_to = inputs[dir] * tile_size
 	ray.force_raycast_update()
 	if !ray.is_colliding():
 		#position += inputs[dir] * tile_size
 		move_tween(dir)
-		update_facing(dir)
+	else:
+		var objectInWay = ray.get_collider()
+		if objectInWay.name == "KinematicBody2D-DieBomb":
+			print("player facing: " + str(playerFacing))
+			var direction_of_interaction = Vector2((int(playerFacing == DIR.RIGHT) - int(
+				playerFacing == DIR.LEFT)), (int(playerFacing == DIR.DOWN) - int(playerFacing == DIR.UP)))
+			objectInWay.get_parent().kick(direction_of_interaction)
+			
 	
 
 func update_facing(direction):
@@ -101,7 +104,7 @@ func handle_speed_status_update():
 
 func handle_dice_status_update():
 	rng.randomize()
-	var randomNum = rng.randi_range(0, diePowerLevels.count() - 1)
+	var randomNum = rng.randi_range(0, diePowerLevels.size() - 1)
 	currentDiePowerLevel = diePowerLevels[randomNum]
 
 func take_damage():
